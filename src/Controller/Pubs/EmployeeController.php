@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/employee')]
+#[Route('/employee', name: 'employee_api_')]
 class EmployeeController extends AbstractController
 {
-    #[Route('/', name: 'employee_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(EmployeeRepository $employeeRepository): Response
     {
         return $this->render('employee/index.html.twig', [
@@ -20,7 +20,7 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'employee_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $employee = new Employee();
@@ -45,7 +45,7 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/{emp_id}', name: 'employee_show', methods: ['GET'])]
+    #[Route('/{emp_id}', name: 'show', methods: ['GET'])]
     public function show(Employee $employee): Response
     {
         return $this->render('employee/show.html.twig', [
@@ -53,7 +53,7 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/{emp_id}/edit', name: 'employee_edit', methods: ['GET', 'POST'])]
+    #[Route('/{emp_id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Employee $employee, EntityManagerInterface $em): Response
     {
         if ($request->isMethod('POST')) {
@@ -73,7 +73,7 @@ class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/{emp_id}', name: 'employee_delete', methods: ['POST'])]
+    #[Route('/{emp_id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Employee $employee, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete'.$employee->getEmpId(), $request->request->get('_token'))) {

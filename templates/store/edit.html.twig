@@ -13,9 +13,16 @@
                 <a class="btn btn-secondary" href="/stores">← Back</a>
             </div>
 
-            {{ include('store/_form.html.twig', {'button_label': 'Update store'}) }}
+            <div class="flex justify-between items-center mt-4">
+                <div>
+                    {{ include('store/_form.html.twig', {'button_label': 'Update store'}) }}
+                </div>
 
-            {{ include('store/_delete_form.html.twig', {'store': store}) }}
+                <div class="text-right">
+                    {{ include('store/_delete_form.html.twig', {'store': store}) }}
+                </div>
+            </div>
+
         </section>
     </div>
 {% endblock %}

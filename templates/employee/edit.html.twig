@@ -10,13 +10,12 @@
                     <h2>Edit {{ employee.firstName }} {{ employee.lastName }}</h2>
                     <p class="meta">Employee ID: {{ employee.empId }}</p>
                 </div>
-                <a class="btn btn-secondary" href="{{ path('employee_index') }}">← Back</a>
+                <a class="btn btn-secondary" href="/employees">← Back</a>
             </div>
 
-            {{ include('employee/_form.html.twig', {'button_label': 'Update employee'}) }}
+            {{ include('employee/_form.html.twig', {'button_label': 'Update employee', 'form': form}) }}
 
             {{ include('employee/_delete_form.html.twig', {'employee': employee}) }}
         </section>
     </div>
 {% endblock %}
-

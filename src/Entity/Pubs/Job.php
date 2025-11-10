@@ -2,6 +2,7 @@
 namespace App\Entity\Pubs;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: "jobs")]
@@ -17,9 +18,12 @@ class Job
 
     // MSSQL tinyint -> Doctrine smallint
     #[ORM\Column(name: "min_lvl", type: "smallint")]
+    #[Assert\Range(min: 10, max: 250, notInRangeMessage: 'Min level must be between {{ min }} and {{ max }}.')]
     private int $minLvl;
 
     #[ORM\Column(name: "max_lvl", type: "smallint")]
+    #[Assert\Range(min: 10, max: 250, notInRangeMessage: 'Max level must be between {{ min }} and {{ max }}.')]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'minLvl', message: 'Max level must be greater than or equal to min level.')]
     private int $maxLvl;
 
     // Getters / Setters

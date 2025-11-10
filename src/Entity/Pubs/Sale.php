@@ -24,7 +24,7 @@ class Sale
     private Title $title;
 
     // --- OTHER COLUMNS ---
-    #[ORM\Column(name: "ord_date", type: "datetime_mutable")]
+    #[ORM\Column(name: "ord_date", type: "datetime")]
     private \DateTimeInterface $ordDate;
 
     #[ORM\Column(name: "qty", type: "smallint")]

@@ -32,7 +32,7 @@
             a { color: var(--accent); text-decoration: none; }
             a:hover { color: var(--accent-dark); }
             .app-shell {
-                width: min(1100px, 100%);
+                width: min(1300px, 100%);
                 background: rgba(15,23,42,.65);
                 border: 1px solid rgba(148,163,184,.15);
                 border-radius: 1.2rem;
@@ -55,20 +55,82 @@
                 text-transform: uppercase;
                 color: var(--muted);
             }
-            nav {
+            .main-nav {
                 display: flex;
                 gap: .75rem;
+                align-items: center;
+                position: relative;
             }
-            nav a {
+            .main-nav > a {
                 padding: .35rem .9rem;
                 border-radius: .65rem;
                 font-size: .9rem;
                 border: 1px solid transparent;
                 color: var(--text);
+                transition: border-color .15s ease, background .15s ease;
             }
-            nav a:hover {
+            .main-nav > a:hover {
                 border-color: rgba(148,163,184,.4);
                 background: rgba(148,163,184,.1);
+            }
+            .nav-group {
+                position: relative;
+            }
+            .nav-trigger {
+                display: inline-flex;
+                align-items: center;
+                gap: .35rem;
+                padding: .35rem .9rem;
+                border-radius: .65rem;
+                border: 1px solid transparent;
+                color: var(--text);
+                font-size: .9rem;
+                cursor: pointer;
+                transition: border-color .15s ease, background .15s ease;
+            }
+            .nav-group:hover .nav-trigger {
+                border-color: rgba(148,163,184,.4);
+                background: rgba(148,163,184,.1);
+            }
+            .nav-trigger svg {
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+            .nav-dropdown {
+                position: absolute;
+                top: calc(100% + .4rem);
+                left: 0;
+                background: rgba(15,23,42,.95);
+                border: 1px solid rgba(148,163,184,.25);
+                border-radius: .85rem;
+                padding: .6rem;
+                display: flex;
+                flex-direction: column;
+                gap: .3rem;
+                min-width: 12rem;
+                box-shadow: 0 10px 30px rgba(15,23,42,.45);
+                transition: opacity .15s ease, transform .15s ease;
+                z-index: 10;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-4px);
+            }
+            .nav-group:hover .nav-dropdown,
+            .nav-group.open .nav-dropdown {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .nav-dropdown a {
+                padding: .45rem .6rem;
+                border-radius: .55rem;
+                color: var(--text);
+                font-size: .9rem;
+                border: 1px solid transparent;
+            }
+            .nav-dropdown a:hover {
+                border-color: rgba(56,189,248,.4);
+                background: rgba(56,189,248,.12);
             }
             main {
                 padding: 2rem;
@@ -83,6 +145,16 @@
                 border-radius: 1rem;
                 padding: 1.5rem;
                 box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+            }
+            .panel-link {
+                text-decoration: none;
+                color: inherit;
+                transition: transform .15s ease, border-color .15s ease;
+                display: block;
+            }
+            .panel-link:hover {
+                transform: translateY(-4px);
+                border-color: rgba(56,189,248,.5);
             }
             .panel-head {
                 display: flex;
@@ -162,6 +234,21 @@
                 text-align: center;
                 color: var(--muted);
             }
+            .quick-grid {
+                display: grid;
+                gap: 1rem;
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+            @media (min-width: 600px) {
+                .quick-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+            @media (min-width: 900px) {
+                .quick-grid {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+            }
             .form-actions {
                 display: flex;
                 gap: .75rem;
@@ -221,19 +308,49 @@
         <div class="app-shell">
             <header>
                 <h1>Pubs Admin</h1>
-                <nav>
+                <nav class="main-nav">
                     <a href="{{ path('home_page') }}">Dashboard</a>
-                    <a href="{{ path('author_index') }}">Authors</a>
-                    <a href="/titles">Titles</a>
-                    <a href="/title-authors">Title Authors</a>
-                    <a href="/stores">Stores</a>
-                    <a href="/sales">Sales</a>
-                    <a href="/roysched">Roysched</a>
-                    <a href="/jobs">Jobs</a>
-                    <a href="{{ path('discount_index') }}">Discounts</a>
-                    <a href="{{ path('publisher_index') }}">Publishers</a>
-                    <a href="/pub-info">Pub Info</a>
-                    <a href="/employees">Employees</a>
+                    <div class="nav-group">
+                        <span class="nav-trigger">
+                            Catalog
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <div class="nav-dropdown">
+                            <a href="{{ path('author_index') }}">Authors</a>
+                            <a href="{{ path('title_page_index') }}">Titles</a>
+                            <a href="{{ path('title_author_page_index') }}">Title Authors</a>
+                            <a href="{{ path('publisher_index') }}">Publishers</a>
+                        </div>
+                    </div>
+                    <div class="nav-group">
+                        <span class="nav-trigger">
+                            Operations
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <div class="nav-dropdown">
+                            <a href="{{ path('store_page_index') }}">Stores</a>
+                            <a href="{{ path('sale_page_index') }}">Sales</a>
+                            <a href="{{ path('discount_index') }}">Discounts</a>
+                            <a href="{{ path('roysched_page_index') }}">Roysched</a>
+                        </div>
+                    </div>
+                    <div class="nav-group">
+                        <span class="nav-trigger">
+                            People
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 4.5L6 8.5L10 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <div class="nav-dropdown">
+                            <a href="{{ path('employee_page_index') }}">Employees</a>
+                            <a href="{{ path('job_page_index') }}">Jobs</a>
+                            <a href="{{ path('pub_info_page_index') }}">Pub Info</a>
+                        </div>
+                    </div>
                 </nav>
             </header>
             <main>
@@ -247,5 +364,20 @@
                 {% block body %}{% endblock %}
             </main>
         </div>
+        <script>
+            (function () {
+                const groups = document.querySelectorAll('.nav-group');
+                groups.forEach(group => {
+                    let hideTimer;
+                    group.addEventListener('mouseenter', () => {
+                        clearTimeout(hideTimer);
+                        group.classList.add('open');
+                    });
+                    group.addEventListener('mouseleave', () => {
+                        hideTimer = setTimeout(() => group.classList.remove('open'), 200);
+                    });
+                });
+            })();
+        </script>
     </body>
 </html>

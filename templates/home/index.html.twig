@@ -15,28 +15,28 @@
                 Use the quick actions below to jump into the most common sections. Each tile mirrors the same
                 glassmorphism style as the rest of the app so the homepage feels cohesive.
             </p>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem;">
-                <a class="panel" style="text-decoration:none;" href="{{ path('author_index') }}">
+            <div class="quick-grid" style="margin-top:1.5rem;">
+                <a class="panel panel-link" href="{{ path('author_index') }}">
                     <h3>Authors</h3>
                     <p class="meta">Create and edit author records.</p>
                 </a>
-                <a class="panel" style="text-decoration:none;" href="/titles">
+                <a class="panel panel-link" href="/titles">
                     <h3>Titles</h3>
                     <p class="meta">Browse catalog metadata.</p>
                 </a>
-                <a class="panel" style="text-decoration:none;" href="/sales">
+                <a class="panel panel-link" href="/sales">
                     <h3>Sales</h3>
                     <p class="meta">Review store order history.</p>
                 </a>
-                <a class="panel" style="text-decoration:none;" href="{{ path('discount_index') }}">
+                <a class="panel panel-link" href="{{ path('discount_index') }}">
                     <h3>Discounts</h3>
                     <p class="meta">Control promotional pricing.</p>
                 </a>
-                <a class="panel" style="text-decoration:none;" href="{{ path('publisher_index') }}">
+                <a class="panel panel-link" href="{{ path('publisher_index') }}">
                     <h3>Publishers</h3>
                     <p class="meta">Manage publishing houses.</p>
                 </a>
-                <a class="panel" style="text-decoration:none;" href="/employees">
+                <a class="panel panel-link" href="/employees">
                     <h3>Employees</h3>
                     <p class="meta">Keep staff data in sync.</p>
                 </a>
@@ -44,4 +44,3 @@
         </section>
     </div>
 {% endblock %}
-

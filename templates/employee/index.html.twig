@@ -10,7 +10,7 @@
                     <h2>Employees</h2>
                     <p class="meta">Staff roster across publishers.</p>
                 </div>
-                <a class="btn" href="{{ path('employee_new') }}">+ New employee</a>
+                <a class="btn" href="/employees/new">+ New employee</a>
             </div>
 
             <div class="table-wrapper">
@@ -32,8 +32,8 @@
                             <td>{{ employee.job ? employee.job.description : 'None' }}</td>
                             <td>{{ employee.publisher ? employee.publisher.name : 'None' }}</td>
                             <td class="table-actions">
-                                <a href="{{ path('employee_show', {'emp_id': employee.empId}) }}">Details</a>
-                                <a href="{{ path('employee_edit', {'emp_id': employee.empId}) }}">Edit</a>
+                                <a href="/employees/{{ employee.empId }}">Details</a>
+                                <a href="/employees/{{ employee.empId }}/edit">Edit</a>
                             </td>
                         </tr>
                     {% else %}
@@ -47,4 +47,3 @@
         </section>
     </div>
 {% endblock %}
-
