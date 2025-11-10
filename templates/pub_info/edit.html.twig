@@ -13,9 +13,16 @@
                 <a class="btn btn-secondary" href="/pub-info">← Back</a>
             </div>
 
-            {{ include('pub_info/_form.html.twig', {'button_label': 'Update info', 'form': form}) }}
+            <div class="flex justify-between items-center mt-4">
+                <div>
+                    {{ include('pub_info/_form.html.twig', {'button_label': 'Update info', 'form': form}) }}
+                </div>
 
-            {{ include('pub_info/_delete_form.html.twig', {'pub_info': pub_info}) }}
+                <div class="text-right">
+                    {{ include('pub_info/_delete_form.html.twig', {'pub_info': pub_info}) }}
+                </div>
+            </div>
+
         </section>
     </div>
 {% endblock %}

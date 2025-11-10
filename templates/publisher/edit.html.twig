@@ -13,9 +13,16 @@
                 <a class="btn btn-secondary" href="{{ path('publisher_index') }}">← Back</a>
             </div>
 
-            {{ include('publisher/_form.html.twig', {'button_label': 'Update publisher'}) }}
+            <div class="flex justify-between items-center mt-4">
+                    <div>
+                        {{ include('publisher/_form.html.twig', {'button_label': 'Update publisher'}) }}
+                    </div>
 
-            {{ include('publisher/_delete_form.html.twig', {'publisher': publisher}) }}
+                    <div class="text-right">
+                        {{ include('publisher/_delete_form.html.twig', {'publisher': publisher}) }}
+                    </div>
+                </div>
+
         </section>
     </div>
 {% endblock %}

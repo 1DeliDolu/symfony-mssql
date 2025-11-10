@@ -15,9 +15,16 @@
                 </div>
             </div>
 
-            {{ include('author/_form.html.twig', {'button_label': 'Update author'}) }}
+            <div class="flex justify-between items-center mt-4">
+                <div>
+                    {{ include('author/_form.html.twig', {'button_label': 'Update author'}) }}
+                </div>
 
-            {{ include('author/_delete_form.html.twig', {'author': author}) }}
+                <div class="text-right">
+                    {{ include('author/_delete_form.html.twig', {'author': author}) }}
+                </div>
+            </div>
+
         </section>
     </div>
 {% endblock %}

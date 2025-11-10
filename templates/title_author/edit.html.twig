@@ -13,9 +13,16 @@
                 <a class="btn btn-secondary" href="/title-authors">← Back</a>
             </div>
 
-            {{ include('title_author/_form.html.twig', {'button_label': 'Update relation'}) }}
+           <div class="flex justify-between items-center mt-4">
+            <div>
+                    {{ include('title_author/_form.html.twig', {'button_label': 'Update relation'}) }}
+                </div>
 
-            {{ include('title_author/_delete_form.html.twig', {'title_author': title_author}) }}
+                <div class="text-right">
+                    {{ include('title_author/_delete_form.html.twig', {'title_author': title_author}) }}
+                </div>
+            </div>
+
         </section>
     </div>
 {% endblock %}

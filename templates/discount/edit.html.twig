@@ -13,9 +13,17 @@
                 <a class="btn btn-secondary" href="{{ path('discount_index') }}">← Back</a>
             </div>
 
-            {{ include('discount/_form.html.twig', {'button_label': 'Update discount'}) }}
+            <div class="flex justify-between items-center mt-4">
+            <div>
+                {{ include('discount/_form.html.twig', {'button_label': 'Update discount'}) }}
+            </div>
 
-            {{ include('discount/_delete_form.html.twig', {'discount': discount}) }}
+                <div class="text-right">
+                    {{ include('discount/_delete_form.html.twig', {'discount': discount}) }}
+                </div>
+            </div>
+        </div>
+
         </section>
     </div>
 {% endblock %}

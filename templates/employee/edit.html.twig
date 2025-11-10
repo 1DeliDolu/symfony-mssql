@@ -13,9 +13,16 @@
                 <a class="btn btn-secondary" href="/employees">← Back</a>
             </div>
 
-            {{ include('employee/_form.html.twig', {'button_label': 'Update employee', 'form': form}) }}
+            <div class="flex justify-between items-center mt-4">
+                <div>
+                    {{ include('employee/_form.html.twig', {'button_label': 'Update employee', 'form': form}) }}
+                </div>
 
-            {{ include('employee/_delete_form.html.twig', {'employee': employee}) }}
+                <div class="text-right">
+                    {{ include('employee/_delete_form.html.twig', {'employee': employee}) }}
+                </div>
+            </div>
+
         </section>
     </div>
 {% endblock %}
