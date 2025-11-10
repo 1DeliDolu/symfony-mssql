@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Publisher - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Edit {{ publisher.name ?? publisher.id }}</h2>
+                    <p class="meta">Publisher ID: {{ publisher.id }}</p>
+                </div>
+                <a class="btn btn-secondary" href="{{ path('publisher_index') }}">← Back</a>
+            </div>
+
+            {{ include('publisher/_form.html.twig', {'button_label': 'Update publisher'}) }}
+
+            {{ include('publisher/_delete_form.html.twig', {'publisher': publisher}) }}
+        </section>
+    </div>
+{% endblock %}
+

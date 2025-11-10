@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Discount - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Edit {{ discount.discountType }}</h2>
+                    <p class="meta">{{ discount.store ? discount.store.name : 'No store assigned' }}</p>
+                </div>
+                <a class="btn btn-secondary" href="{{ path('discount_index') }}">← Back</a>
+            </div>
+
+            {{ include('discount/_form.html.twig', {'button_label': 'Update discount'}) }}
+
+            {{ include('discount/_delete_form.html.twig', {'discount': discount}) }}
+        </section>
+    </div>
+{% endblock %}

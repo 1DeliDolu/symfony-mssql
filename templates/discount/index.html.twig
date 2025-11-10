@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Discounts - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Discounts</h2>
+                    <p class="meta">Price reductions across stores and quantity ranges.</p>
+                </div>
+                <a class="btn" href="{{ path('discount_new') }}">+ New discount</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Store</th>
+                        <th>Range</th>
+                        <th>Discount</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for discount in discounts %}
+                        <tr>
+                            <td>{{ discount.discountType }}</td>
+                            <td>{{ discount.store ? discount.store.name ~ ' (' ~ discount.store.id ~ ')' : 'None' }}</td>
+                            <td>
+                                {% if discount.lowQty is not null or discount.highQty is not null %}
+                                    {{ discount.lowQty ?? '0' }} - {{ discount.highQty ?? 'Infinity' }}
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </td>
+                            <td>{{ discount.discount|number_format(2) }}%</td>
+                            <td class="table-actions">
+                                <a href="{{ path('discount_show', {'discountType': discount.discountType}) }}">Details</a>
+                                <a href="{{ path('discount_edit', {'discountType': discount.discountType}) }}">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No discounts recorded.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

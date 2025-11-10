@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Discount {{ discount.discountType }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ discount.discountType }}</h2>
+                    <p class="meta">{{ discount.store ? discount.store.name ~ ' - ' ~ discount.store.id : 'No specific store' }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="{{ path('discount_edit', {'discountType': discount.discountType}) }}">Edit</a>
+                    <a class="btn btn-secondary" href="{{ path('discount_index') }}">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Low qty</th>
+                    <td>{{ discount.lowQty ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>High qty</th>
+                    <td>{{ discount.highQty ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Discount</th>
+                    <td>{{ discount.discount|number_format(2) }}%</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('discount/_delete_form.html.twig', {'discount': discount}) }}
+        </section>
+    </div>
+{% endblock %}

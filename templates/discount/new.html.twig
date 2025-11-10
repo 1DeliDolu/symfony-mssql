@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Discount - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Create discount</h2>
+                    <p class="meta">Define store-specific price reductions.</p>
+                </div>
+                <a class="btn btn-secondary" href="{{ path('discount_index') }}">← Back to discounts</a>
+            </div>
+
+            {{ include('discount/_form.html.twig') }}
+        </section>
+    </div>
+{% endblock %}

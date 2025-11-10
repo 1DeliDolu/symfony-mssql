@@ -1,54 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author {{ author.id }}{% endblock %}
+{% block title %}Author {{ author.id }} - Pubs Admin{% endblock %}
 
 {% block body %}
-    <h1>Author {{ author.firstName }} {{ author.lastName }}</h1>
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ author.firstName }} {{ author.lastName }}</h2>
+                    <p class="meta">Author ID: {{ author.id }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="{{ path('author_edit', {'id': author.id}) }}">Edit</a>
+                    <a class="btn btn-secondary" href="{{ path('author_index') }}">Back</a>
+                </div>
+            </div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>ID</th>
-                <td>{{ author.id }}</td>
-            </tr>
-            <tr>
-                <th>Last name</th>
-                <td>{{ author.lastName }}</td>
-            </tr>
-            <tr>
-                <th>First name</th>
-                <td>{{ author.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ author.phone }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ author.address ?: '—' }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ author.city ?: '—' }}</td>
-            </tr>
-            <tr>
-                <th>State</th>
-                <td>{{ author.state ?: '—' }}</td>
-            </tr>
-            <tr>
-                <th>ZIP</th>
-                <td>{{ author.zip ?: '—' }}</td>
-            </tr>
-            <tr>
-                <th>Contract</th>
-                <td>{{ author.contract ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <table>
+                <tbody>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ author.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ author.address ?: 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ author.city ?: 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{ author.state ?: 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>ZIP</th>
+                    <td>{{ author.zip ?: 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Contract</th>
+                    <td>{{ author.contract ? 'Active' : 'None' }}</td>
+                </tr>
+                </tbody>
+            </table>
 
-    <a href="{{ path('author_edit', {'id': author.id}) }}">edit</a>
-    <a href="{{ path('author_index') }}">back to list</a>
-
-    {{ include('author/_delete_form.html.twig', {'author': author}) }}
+            {{ include('author/_delete_form.html.twig', {'author': author}) }}
+        </section>
+    </div>
 {% endblock %}
-

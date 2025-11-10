@@ -1,9 +1,10 @@
 <?php
 namespace App\Entity\Pubs;
 
+use App\Repository\DiscountRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: DiscountRepository::class)]
 #[ORM\Table(name: "discounts")]
 class Discount
 {

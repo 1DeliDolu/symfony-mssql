@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publisher {{ publisher.id }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ publisher.name ?? 'Unnamed publisher' }}</h2>
+                    <p class="meta">Publisher ID: {{ publisher.id }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="{{ path('publisher_edit', {'id': publisher.id}) }}">Edit</a>
+                    <a class="btn btn-secondary" href="{{ path('publisher_index') }}">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>City</th>
+                    <td>{{ publisher.city ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{ publisher.state ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>{{ publisher.country ?? 'None' }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('publisher/_delete_form.html.twig', {'publisher': publisher}) }}
+        </section>
+    </div>
+{% endblock %}
+

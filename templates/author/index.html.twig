@@ -1,42 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Authors{% endblock %}
+{% block title %}Authors - Pubs Admin{% endblock %}
 
 {% block body %}
-    <h1>Authors</h1>
-
-    <p>
-        <a href="{{ path('author_new') }}">Create new</a>
-    </p>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Contract</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for author in authors %}
-            <tr>
-                <td>{{ author.id }}</td>
-                <td>{{ author.firstName }} {{ author.lastName }}</td>
-                <td>{{ author.phone }}</td>
-                <td>{{ author.contract ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('author_show', {'id': author.id}) }}">show</a>
-                    <a href="{{ path('author_edit', {'id': author.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">No authors found.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Authors</h2>
+                    <p class="meta">Manage authors stored in the pubs catalog.</p>
+                </div>
+                <a class="btn" href="{{ path('author_new') }}">+ New author</a>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Contract</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for author in authors %}
+                        <tr>
+                            <td>{{ author.id }}</td>
+                            <td>{{ author.firstName }} {{ author.lastName }}</td>
+                            <td>{{ author.phone }}</td>
+                            <td>{{ author.contract ? 'Active' : 'None' }}</td>
+                            <td class="table-actions">
+                                <a href="{{ path('author_show', {'id': author.id}) }}">Details</a>
+                                <a href="{{ path('author_edit', {'id': author.id}) }}">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No authors found yet.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
 {% endblock %}
-

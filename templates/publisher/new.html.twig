@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Publisher - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Create publisher</h2>
+                    <p class="meta">Add a new publishing house.</p>
+                </div>
+                <a class="btn btn-secondary" href="{{ path('publisher_index') }}">← Back to publishers</a>
+            </div>
+
+            {{ include('publisher/_form.html.twig') }}
+        </section>
+    </div>
+{% endblock %}
+

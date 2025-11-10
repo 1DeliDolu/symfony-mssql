@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publishers - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Publishers</h2>
+                    <p class="meta">Manage publishing houses tracked by the pubs database.</p>
+                </div>
+                <a class="btn" href="{{ path('publisher_new') }}">+ New publisher</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for publisher in publishers %}
+                        <tr>
+                            <td>{{ publisher.id }}</td>
+                            <td>{{ publisher.name ?? 'None' }}</td>
+                            <td>{{ publisher.city ?? 'None' }}{% if publisher.state %}, {{ publisher.state }}{% endif %}</td>
+                            <td>{{ publisher.country ?? 'None' }}</td>
+                            <td class="table-actions">
+                                <a href="{{ path('publisher_show', {'id': publisher.id}) }}">Details</a>
+                                <a href="{{ path('publisher_edit', {'id': publisher.id}) }}">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No publishers available.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+

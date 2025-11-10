@@ -1,12 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Author{% endblock %}
+{% block title %}New Author - Pubs Admin{% endblock %}
 
 {% block body %}
-    <h1>Create new author</h1>
-
-    {{ include('author/_form.html.twig') }}
-
-    <a href="{{ path('author_index') }}">back to list</a>
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Create author</h2>
+                    <p class="meta">Add a new author to the catalog.</p>
+                </div>
+                <a class="btn btn-secondary" href="{{ path('author_index') }}">← Back to authors</a>
+            </div>
+            {{ include('author/_form.html.twig') }}
+        </section>
+    </div>
 {% endblock %}
-

@@ -1,9 +1,10 @@
 <?php
 namespace App\Entity\Pubs;
 
+use App\Repository\PublisherRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: PublisherRepository::class)]
 #[ORM\Table(name: "publishers")]
 class Publisher
 {

@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/pubs/sales', name: 'sales_')]
 class SaleController extends AbstractController
 {
-    // LIST with filters: stor_id / ord_num / title_id / date range
     #[Route('', name: 'list', methods: ['GET'])]
     public function list(Request $req, EntityManagerInterface $em): JsonResponse
     {
@@ -25,9 +24,9 @@ class SaleController extends AbstractController
             ->orderBy('s.ordDate', 'DESC')
             ->setMaxResults(min(100, (int)$req->query->get('pageSize', 50)));
 
-        if ($v = $req->query->get('stor_id'))  $qb->andWhere('s.storId = :stor')->setParameter('stor', $v);
+        if ($v = $req->query->get('stor_id'))  $qb->andWhere('st.id = :stor')->setParameter('stor', $v);
         if ($v = $req->query->get('ord_num'))  $qb->andWhere('s.ordNum = :ord')->setParameter('ord', $v);
-        if ($v = $req->query->get('title_id')) $qb->andWhere('s.titleId = :tid')->setParameter('tid', $v);
+        if ($v = $req->query->get('title_id')) $qb->andWhere('t.id = :tid')->setParameter('tid', $v);
 
         if ($from = $req->query->get('from'))  $qb->andWhere('s.ordDate >= :from')->setParameter('from', new \DateTimeImmutable($from));
         if ($to   = $req->query->get('to'))    $qb->andWhere('s.ordDate <= :to')->setParameter('to', new \DateTimeImmutable($to));
@@ -44,14 +43,13 @@ class SaleController extends AbstractController
         return $this->json($rows);
     }
 
-    // GET by composite key
     #[Route('/{stor_id}/{ord_num}/{title_id}', name: 'get', methods: ['GET'])]
     public function getOne(string $stor_id, string $ord_num, string $title_id, EntityManagerInterface $em): JsonResponse
     {
         $s = $em->getRepository(Sale::class)->find([
-            'storId' => $stor_id,
+            'store' => $em->getReference(Store::class, $stor_id),
             'ordNum' => $ord_num,
-            'titleId'=> $title_id,
+            'title' => $em->getReference(Title::class, $title_id),
         ]);
         if (!$s) return $this->json(['error'=>'Not found'], 404);
 
@@ -65,7 +63,6 @@ class SaleController extends AbstractController
         ]);
     }
 
-    // CREATE
     #[Route('', name: 'create', methods: ['POST'])]
     public function create(Request $req, EntityManagerInterface $em): JsonResponse
     {
@@ -75,24 +72,20 @@ class SaleController extends AbstractController
             if (!isset($d[$k]) || $d[$k] === '') return $this->json(['error'=>"$k required"], 400);
         }
 
-        // FK’ler
         $store = $em->find(Store::class, $d['stor_id']);
-        $title = $em->find(Title::class,  $d['title_id']);
+        $title = $em->find(Title::class, $d['title_id']);
         if (!$store || !$title) return $this->json(['error'=>'Store or Title not found'], 400);
 
-        // Zaten var mı?
         $exists = $em->getRepository(Sale::class)->find([
-            'storId' => $d['stor_id'],
+            'store' => $store,
             'ordNum' => $d['ord_num'],
-            'titleId'=> $d['title_id'],
+            'title' => $title,
         ]);
         if ($exists) return $this->json(['error'=>'Already exists'], 409);
 
         $s = new Sale();
-        $s->setStorId($d['stor_id'])
+        $s->setStore($store)
           ->setOrdNum($d['ord_num'])
-          ->setTitleId($d['title_id'])
-          ->setStore($store)
           ->setTitle($title)
           ->setOrdDate(new \DateTimeImmutable($d['ord_date']))
           ->setQty((int)$d['qty'])
@@ -104,12 +97,16 @@ class SaleController extends AbstractController
         return $this->json(['message'=>'created'], Response::HTTP_CREATED);
     }
 
-    // UPDATE
     #[Route('/{stor_id}/{ord_num}/{title_id}', name: 'update', methods: ['PUT','PATCH'])]
     public function update(string $stor_id, string $ord_num, string $title_id, Request $req, EntityManagerInterface $em): JsonResponse
     {
+        $storeRef = $em->getReference(Store::class, $stor_id);
+        $titleRef = $em->getReference(Title::class, $title_id);
+
         $s = $em->getRepository(Sale::class)->find([
-            'storId' => $stor_id, 'ordNum' => $ord_num, 'titleId' => $title_id
+            'store' => $storeRef,
+            'ordNum' => $ord_num,
+            'title' => $titleRef,
         ]);
         if (!$s) return $this->json(['error'=>'Not found'], 404);
 
@@ -119,28 +116,32 @@ class SaleController extends AbstractController
         if (array_key_exists('qty', $d))      $s->setQty((int)$d['qty']);
         if (array_key_exists('payterms', $d)) $s->setPayterms($d['payterms']);
 
-        // (İsteğe bağlı) FK değişimi
         if (array_key_exists('stor_id', $d) && $d['stor_id'] !== $stor_id) {
-            $store = $em->find(Store::class, $d['stor_id']);
-            if (!$store) return $this->json(['error'=>'Store not found'], 400);
-            $s->setStorId($d['stor_id'])->setStore($store);
+            $newStore = $em->find(Store::class, $d['stor_id']);
+            if (!$newStore) return $this->json(['error'=>'Store not found'], 400);
+            $s->setStore($newStore);
         }
+
         if (array_key_exists('title_id', $d) && $d['title_id'] !== $title_id) {
-            $title = $em->find(Title::class, $d['title_id']);
-            if (!$title) return $this->json(['error'=>'Title not found'], 400);
-            $s->setTitleId($d['title_id'])->setTitle($title);
+            $newTitle = $em->find(Title::class, $d['title_id']);
+            if (!$newTitle) return $this->json(['error'=>'Title not found'], 400);
+            $s->setTitle($newTitle);
         }
 
         $em->flush();
         return $this->json(['message'=>'updated']);
     }
 
-    // DELETE
     #[Route('/{stor_id}/{ord_num}/{title_id}', name: 'delete', methods: ['DELETE'])]
     public function delete(string $stor_id, string $ord_num, string $title_id, EntityManagerInterface $em): JsonResponse
     {
+        $storeRef = $em->getReference(Store::class, $stor_id);
+        $titleRef = $em->getReference(Title::class, $title_id);
+
         $s = $em->getRepository(Sale::class)->find([
-            'storId' => $stor_id, 'ordNum' => $ord_num, 'titleId' => $title_id
+            'store' => $storeRef,
+            'ordNum' => $ord_num,
+            'title' => $titleRef,
         ]);
         if (!$s) return $this->json(['error'=>'Not found'], 404);
 
