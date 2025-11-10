@@ -1,0 +1,4 @@
+<form method="post" action="/roysched/{{ roysched.titleId }}/delete" onsubmit="return confirm('Delete this royalty schedule?');" class="stack">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ roysched.titleId) }}">
+    <button class="btn btn-danger">Delete</button>
+</form>

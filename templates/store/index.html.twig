@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stores - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Stores</h2>
+                    <p class="meta">Bookstore locations carrying our titles.</p>
+                </div>
+                <a class="btn" href="/stores/new">+ New store</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for store in stores %}
+                        <tr>
+                            <td>{{ store.id }}</td>
+                            <td>{{ store.name ?? 'None' }}</td>
+                            <td>{{ store.city ?? 'None' }}</td>
+                            <td>{{ store.state ?? 'None' }}</td>
+                            <td class="table-actions">
+                                <a href="/stores/{{ store.id }}">Details</a>
+                                <a href="/stores/{{ store.id }}/edit">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No stores registered.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

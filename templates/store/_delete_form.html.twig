@@ -1,0 +1,4 @@
+<form method="post" action="/stores/{{ store.id }}/delete" onsubmit="return confirm('Delete this store?');" class="stack">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ store.id) }}">
+    <button class="btn btn-danger">Delete</button>
+</form>

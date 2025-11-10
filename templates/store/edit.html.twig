@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Store - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Edit {{ store.name ?? store.id }}</h2>
+                    <p class="meta">Store ID: {{ store.id }}</p>
+                </div>
+                <a class="btn btn-secondary" href="/stores">← Back</a>
+            </div>
+
+            {{ include('store/_form.html.twig', {'button_label': 'Update store'}) }}
+
+            {{ include('store/_delete_form.html.twig', {'store': store}) }}
+        </section>
+    </div>
+{% endblock %}

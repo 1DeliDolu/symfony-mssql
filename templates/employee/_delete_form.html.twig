@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('employee_delete', {'emp_id': employee.empId}) }}" onsubmit="return confirm('Delete this employee?');" class="stack">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ employee.empId) }}">
+    <button class="btn btn-danger">Delete</button>
+</form>
+

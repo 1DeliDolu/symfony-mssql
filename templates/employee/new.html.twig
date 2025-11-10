@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Employee - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Create employee</h2>
+                    <p class="meta">Add a staff record.</p>
+                </div>
+                <a class="btn btn-secondary" href="{{ path('employee_index') }}">← Back</a>
+            </div>
+
+            {{ include('employee/_form.html.twig') }}
+        </section>
+    </div>
+{% endblock %}

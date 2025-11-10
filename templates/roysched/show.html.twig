@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Royalty {{ roysched.titleId }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ roysched.title ? roysched.title.title : roysched.titleId }}</h2>
+                    <p class="meta">Royalty schedule</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="/roysched/{{ roysched.titleId }}/edit">Edit</a>
+                    <a class="btn btn-secondary" href="/roysched">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Low range</th>
+                    <td>{{ roysched.lorange ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>High range</th>
+                    <td>{{ roysched.hirange ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Royalty</th>
+                    <td>{{ roysched.royalty ?? 'None' }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('roysched/_delete_form.html.twig', {'roysched': roysched}) }}
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Title - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Create title</h2>
+                    <p class="meta">Add a new title to the catalog.</p>
+                </div>
+                <a class="btn btn-secondary" href="/titles">← Back to titles</a>
+            </div>
+            {{ include('title/_form.html.twig') }}
+        </section>
+    </div>
+{% endblock %}

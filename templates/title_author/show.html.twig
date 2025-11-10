@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Title Author - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ title_author.author ? title_author.author.firstName ~ ' ' ~ title_author.author.lastName : title_author.auId }}</h2>
+                    <p class="meta">{{ title_author.title ? title_author.title.title : title_author.titleId }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="/title-authors/{{ title_author.auId }}/{{ title_author.titleId }}/edit">Edit</a>
+                    <a class="btn btn-secondary" href="/title-authors">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Author ID</th>
+                    <td>{{ title_author.auId }}</td>
+                </tr>
+                <tr>
+                    <th>Title ID</th>
+                    <td>{{ title_author.titleId }}</td>
+                </tr>
+                <tr>
+                    <th>Order</th>
+                    <td>{{ title_author.auOrd ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Royalty %</th>
+                    <td>{{ title_author.royaltyper ?? 'None' }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('title_author/_delete_form.html.twig', {'title_author': title_author}) }}
+        </section>
+    </div>
+{% endblock %}

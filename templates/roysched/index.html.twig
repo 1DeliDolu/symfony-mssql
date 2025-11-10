@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Royalty Schedules - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Royalty schedules</h2>
+                    <p class="meta">Payout tiers per title.</p>
+                </div>
+                <a class="btn" href="/roysched/new">+ New schedule</a>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Low range</th>
+                        <th>High range</th>
+                        <th>Royalty</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for roysched in royscheds %}
+                        <tr>
+                            <td>{{ roysched.title ? roysched.title.title : roysched.titleId }}</td>
+                            <td>{{ roysched.lorange ?? 'None' }}</td>
+                            <td>{{ roysched.hirange ?? 'None' }}</td>
+                            <td>{{ roysched.royalty ?? 'None' }}</td>
+                            <td class="table-actions">
+                                <a href="/roysched/{{ roysched.titleId }}">Details</a>
+                                <a href="/roysched/{{ roysched.titleId }}/edit">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No royalty schedules defined.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

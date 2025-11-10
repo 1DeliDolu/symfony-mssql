@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Sale - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Record sale</h2>
+                    <p class="meta">Create a new store order entry.</p>
+                </div>
+                <a class="btn btn-secondary" href="/sales">← Back</a>
+            </div>
+
+            {{ include('sale/_form.html.twig') }}
+        </section>
+    </div>
+{% endblock %}

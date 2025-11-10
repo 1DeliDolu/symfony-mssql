@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Store {{ store.id }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ store.name ?? 'Unnamed store' }}</h2>
+                    <p class="meta">Store ID: {{ store.id }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="/stores/{{ store.id }}/edit">Edit</a>
+                    <a class="btn btn-secondary" href="/stores">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ store.address ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ store.city ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{ store.state ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Zip</th>
+                    <td>{{ store.zip ?? 'None' }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('store/_delete_form.html.twig', {'store': store}) }}
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Royalty Schedule - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ roysched.title ? roysched.title.title : roysched.titleId }}</h2>
+                    <p class="meta">Title ID: {{ roysched.titleId }}</p>
+                </div>
+                <a class="btn btn-secondary" href="/roysched">← Back</a>
+            </div>
+
+            {{ include('roysched/_form.html.twig', {'button_label': 'Update schedule'}) }}
+
+            {{ include('roysched/_delete_form.html.twig', {'roysched': roysched}) }}
+        </section>
+    </div>
+{% endblock %}

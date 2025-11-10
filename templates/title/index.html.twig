@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Titles - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Titles</h2>
+                    <p class="meta">Manage book titles from the pubs catalog.</p>
+                </div>
+                <a class="btn" href="/titles/new">+ New title</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Publisher</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for title in titles %}
+                        <tr>
+                            <td>{{ title.id }}</td>
+                            <td>{{ title.title }}</td>
+                            <td>{{ title.type }}</td>
+                            <td>{{ title.price is not null ? title.price ~ ' $' : 'N/A' }}</td>
+                            <td>{{ title.pubId ?? 'Unknown' }}</td>
+                            <td class="table-actions">
+                                <a href="/titles/{{ title.id }}">Details</a>
+                                <a href="/titles/{{ title.id }}/edit">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="empty-state">No titles found yet.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

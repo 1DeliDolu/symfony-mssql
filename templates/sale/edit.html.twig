@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Sale - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Order {{ sale.ordNum }}</h2>
+                    <p class="meta">{{ sale.store ? sale.store.name : sale.store.id }} • {{ sale.title ? sale.title.title : sale.title.id }}</p>
+                </div>
+                <a class="btn btn-secondary" href="/sales">← Back</a>
+            </div>
+
+            {{ include('sale/_form.html.twig', {'button_label': 'Update sale'}) }}
+
+            {{ include('sale/_delete_form.html.twig', {'sale': sale}) }}
+        </section>
+    </div>
+{% endblock %}

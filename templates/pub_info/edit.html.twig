@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Publisher Info - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Edit {{ pub_info.publisher ? pub_info.publisher.name : pub_info.pubId }}</h2>
+                    <p class="meta">Publisher ID: {{ pub_info.pubId }}</p>
+                </div>
+                <a class="btn btn-secondary" href="/pub-info">← Back</a>
+            </div>
+
+            {{ include('pub_info/_form.html.twig', {'button_label': 'Update info'}) }}
+
+            {{ include('pub_info/_delete_form.html.twig', {'pub_info': pub_info}) }}
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Relation - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ title_author.author ? title_author.author.firstName ~ ' ' ~ title_author.author.lastName : title_author.auId }}</h2>
+                    <p class="meta">{{ title_author.title ? title_author.title.title : title_author.titleId }}</p>
+                </div>
+                <a class="btn btn-secondary" href="/title-authors">← Back</a>
+            </div>
+
+            {{ include('title_author/_form.html.twig', {'button_label': 'Update relation'}) }}
+
+            {{ include('title_author/_delete_form.html.twig', {'title_author': title_author}) }}
+        </section>
+    </div>
+{% endblock %}

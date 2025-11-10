@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employee {{ employee.empId }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ employee.firstName }} {{ employee.middleInitial }} {{ employee.lastName }}</h2>
+                    <p class="meta">{{ employee.job ? employee.job.description : 'No job assigned' }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="{{ path('employee_edit', {'emp_id': employee.empId}) }}">Edit</a>
+                    <a class="btn btn-secondary" href="{{ path('employee_index') }}">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Job level</th>
+                    <td>{{ employee.jobLevel }}</td>
+                </tr>
+                <tr>
+                    <th>Publisher</th>
+                    <td>{{ employee.publisher ? employee.publisher.name : 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Hire date</th>
+                    <td>{{ employee.hireDate ? employee.hireDate|date('Y-m-d') : 'Unknown' }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('employee/_delete_form.html.twig', {'employee': employee}) }}
+        </section>
+    </div>
+{% endblock %}
+

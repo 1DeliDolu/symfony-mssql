@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Title Authors - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Title Authors</h2>
+                    <p class="meta">Relationships between authors and titles.</p>
+                </div>
+                <a class="btn" href="/title-authors/new">+ New relation</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Order</th>
+                        <th>Royalty %</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for title_author in title_authors %}
+                        <tr>
+                            <td>{{ title_author.author ? title_author.author.firstName ~ ' ' ~ title_author.author.lastName : title_author.auId }}</td>
+                            <td>{{ title_author.title ? title_author.title.title : title_author.titleId }}</td>
+                            <td>{{ title_author.auOrd ?? 'None' }}</td>
+                            <td>{{ title_author.royaltyper ?? 'None' }}</td>
+                            <td class="table-actions">
+                                <a href="/title-authors/{{ title_author.auId }}/{{ title_author.titleId }}">Details</a>
+                                <a href="/title-authors/{{ title_author.auId }}/{{ title_author.titleId }}/edit">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No relations recorded.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

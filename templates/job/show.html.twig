@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Job {{ job.id }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ job.description }}</h2>
+                    <p class="meta">Job ID: {{ job.id }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="/jobs/{{ job.id }}/edit">Edit</a>
+                    <a class="btn btn-secondary" href="/jobs">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Min level</th>
+                    <td>{{ job.minLvl }}</td>
+                </tr>
+                <tr>
+                    <th>Max level</th>
+                    <td>{{ job.maxLvl }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('job/_delete_form.html.twig', {'job': job}) }}
+        </section>
+    </div>
+{% endblock %}

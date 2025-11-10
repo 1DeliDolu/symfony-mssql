@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sales - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Sales</h2>
+                    <p class="meta">Recent store orders.</p>
+                </div>
+                <a class="btn" href="/sales/new">+ New sale</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Store</th>
+                        <th>Order #</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Qty</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sale in sales %}
+                        <tr>
+                            <td>{{ sale.store ? sale.store.name : sale.store.id }}</td>
+                            <td>{{ sale.ordNum }}</td>
+                            <td>{{ sale.title ? sale.title.title : sale.title.id }}</td>
+                            <td>{{ sale.ordDate ? sale.ordDate|date('Y-m-d') : 'Unknown' }}</td>
+                            <td>{{ sale.qty }}</td>
+                            <td class="table-actions">
+                                <a href="/sales/{{ sale.store.id }}/{{ sale.ordNum }}/{{ sale.title.id }}">Details</a>
+                                <a href="/sales/{{ sale.store.id }}/{{ sale.ordNum }}/{{ sale.title.id }}/edit">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="empty-state">No sales captured.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

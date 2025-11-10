@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sale {{ sale.ordNum }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Order {{ sale.ordNum }}</h2>
+                    <p class="meta">{{ sale.store ? sale.store.name : sale.store.id }} • {{ sale.title ? sale.title.title : sale.title.id }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="/sales/{{ sale.store.id }}/{{ sale.ordNum }}/{{ sale.title.id }}/edit">Edit</a>
+                    <a class="btn btn-secondary" href="/sales">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Ordered at</th>
+                    <td>{{ sale.ordDate ? sale.ordDate|date('Y-m-d H:i') : 'Unknown' }}</td>
+                </tr>
+                <tr>
+                    <th>Quantity</th>
+                    <td>{{ sale.qty }}</td>
+                </tr>
+                <tr>
+                    <th>Pay terms</th>
+                    <td>{{ sale.payterms }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('sale/_delete_form.html.twig', {'sale': sale}) }}
+        </section>
+    </div>
+{% endblock %}

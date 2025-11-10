@@ -14,20 +14,4 @@ class TitleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Title::class);
     }
-
-    public function save(Title $entity, bool $flush = false): void
-    {
-        $this->_em->persist($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
-    }
-
-    public function remove(Title $entity, bool $flush = false): void
-    {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
-    }
 }

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Job - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Edit {{ job.description }}</h2>
+                    <p class="meta">Job ID: {{ job.id }}</p>
+                </div>
+                <a class="btn btn-secondary" href="/jobs">← Back</a>
+            </div>
+
+            {{ include('job/_form.html.twig', {'button_label': 'Update job'}) }}
+
+            {{ include('job/_delete_form.html.twig', {'job': job}) }}
+        </section>
+    </div>
+{% endblock %}

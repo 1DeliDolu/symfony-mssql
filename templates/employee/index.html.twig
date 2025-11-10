@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employees - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Employees</h2>
+                    <p class="meta">Staff roster across publishers.</p>
+                </div>
+                <a class="btn" href="{{ path('employee_new') }}">+ New employee</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Job</th>
+                        <th>Publisher</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.empId }}</td>
+                            <td>{{ employee.firstName }} {{ employee.middleInitial }} {{ employee.lastName }}</td>
+                            <td>{{ employee.job ? employee.job.description : 'None' }}</td>
+                            <td>{{ employee.publisher ? employee.publisher.name : 'None' }}</td>
+                            <td class="table-actions">
+                                <a href="{{ path('employee_show', {'emp_id': employee.empId}) }}">Details</a>
+                                <a href="{{ path('employee_edit', {'emp_id': employee.empId}) }}">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No employees recorded.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,4 @@
+<form method="post" action="/title-authors/{{ title_author.auId }}/{{ title_author.titleId }}/delete" onsubmit="return confirm('Delete this title-author entry?');" class="stack">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ title_author.auId ~ '-' ~ title_author.titleId) }}">
+    <button class="btn btn-danger">Delete</button>
+</form>

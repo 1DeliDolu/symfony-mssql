@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Employee - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Edit {{ employee.firstName }} {{ employee.lastName }}</h2>
+                    <p class="meta">Employee ID: {{ employee.empId }}</p>
+                </div>
+                <a class="btn btn-secondary" href="{{ path('employee_index') }}">← Back</a>
+            </div>
+
+            {{ include('employee/_form.html.twig', {'button_label': 'Update employee'}) }}
+
+            {{ include('employee/_delete_form.html.twig', {'employee': employee}) }}
+        </section>
+    </div>
+{% endblock %}
+

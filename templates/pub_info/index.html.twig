@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publisher Info - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Publisher info</h2>
+                    <p class="meta">Press-ready information for each publisher.</p>
+                </div>
+                <a class="btn" href="/pub-info/new">+ New entry</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Publisher</th>
+                        <th>Has logo</th>
+                        <th>Snippet</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for pub_info in pub_infos %}
+                        <tr>
+                            <td>{{ pub_info.publisher ? pub_info.publisher.name : pub_info.pubId }}</td>
+                            <td>{{ pub_info.logo ? 'Yes' : 'No' }}</td>
+                            <td>{{ pub_info.prInfo ? pub_info.prInfo|slice(0, 60) ~ (pub_info.prInfo|length > 60 ? '…' : '') : 'None' }}</td>
+                            <td class="table-actions">
+                                <a href="/pub-info/{{ pub_info.pubId }}">Details</a>
+                                <a href="/pub-info/{{ pub_info.pubId }}/edit">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="empty-state">No publisher info recorded.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}

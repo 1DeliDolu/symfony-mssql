@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Title {{ title.id }} - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>{{ title.title }}</h2>
+                    <p class="meta">Title ID: {{ title.id }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn" href="/titles/{{ title.id }}/edit">Edit</a>
+                    <a class="btn btn-secondary" href="/titles">Back</a>
+                </div>
+            </div>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ title.type }}</td>
+                </tr>
+                <tr>
+                    <th>Publisher</th>
+                    <td>{{ title.pubId ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{ title.price is not null ? title.price ~ ' $' : 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <th>Advance</th>
+                    <td>{{ title.advance ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Royalty</th>
+                    <td>{{ title.royalty ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>YTD Sales</th>
+                    <td>{{ title.ytdSales ?? 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Notes</th>
+                    <td>{{ title.notes ?: 'None' }}</td>
+                </tr>
+                <tr>
+                    <th>Publication Date</th>
+                    <td>{{ title.pubdate|date('Y-m-d') }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            {{ include('title/_delete_form.html.twig', {'title': title}) }}
+        </section>
+    </div>
+{% endblock %}

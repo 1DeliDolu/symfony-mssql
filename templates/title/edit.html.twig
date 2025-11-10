@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Title - Pubs Admin{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <section class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2>Edit {{ title.title }}</h2>
+                    <p class="meta">Title ID: {{ title.id }}</p>
+                </div>
+                <div class="stack">
+                    <a class="btn btn-secondary" href="/titles">← Back</a>
+                </div>
+            </div>
+
+            {{ include('title/_form.html.twig', {'button_label': 'Update title'}) }}
+
+            {{ include('title/_delete_form.html.twig', {'title': title}) }}
+        </section>
+    </div>
+{% endblock %}
